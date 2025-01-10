@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NavComponent } from "./nav/nav.component";
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
+import { HomeComponent } from "./home/home.component";
 
 @Component({
   selector: 'app-root',
-  imports: [HttpClientModule,CommonModule],
+  imports: [HttpClientModule, CommonModule, NavComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -13,25 +17,19 @@ export class AppComponent implements OnInit {
   title = 'Kupi Auto';
   users: any
 
-  constructor(private http: HttpClient) { }
+  constructor(private accountService: AccountService) { }
 
 
   ngOnInit() {
-    this.getUsers();
-    
+    this.setCurrentUser(); 
   }
 
-  getUsers()
-  {
-    this.http.get('https://localhost:5001/api/users')
-    .subscribe( users => {
-      this.users = users  
-    },
-    error => {
-      console.log(error)
-    }
-  )};
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
+   }
 
+ 
 }
 
 

@@ -1,0 +1,18 @@
+<div class="container">
+    <div *ngIf="!registerMode" style="text-align: center;">
+        <h1>Pronadji auto za tebe</h1>
+        <p class="lead">Udji i pretrazi milione automobila</p>
+        <div class="text-center">
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Registruj se</button>
+            <button class="btn btn-info btn-lg">Vise informacija</button>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="registerMode">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+            </div>
+        </div>
+    </div>
+</div>
