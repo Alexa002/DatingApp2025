@@ -3,8 +3,9 @@ import { FormsModule } from '@angular/forms'
 import { AccountService } from '../_services/account.service';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { Observable } from 'rxjs';
-import { User } from '../_models/user';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { User } from '../_models/user';
     CommonModule,
     FormsModule,
     BsDropdownModule,
+    RouterModule,
   ],
   providers: [
     AccountService,
@@ -25,7 +27,7 @@ export class NavComponent implements OnInit {
   model: any = {}
   
   
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -35,14 +37,17 @@ export class NavComponent implements OnInit {
   login() {
     this.accountService.login(this.model).subscribe(response => {
       console.log(response);
+      this.router.navigateByUrl('/members');
     },
       error => {
         console.log(error);
+        this.toastr.error(error.error)
       });
   }
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('*/')
   }
 
 

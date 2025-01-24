@@ -6,10 +6,11 @@ import { NavComponent } from "./nav/nav.component";
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
 import { HomeComponent } from "./home/home.component";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [HttpClientModule, CommonModule, NavComponent, HomeComponent],
+  imports: [HttpClientModule, RouterModule, CommonModule, NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
