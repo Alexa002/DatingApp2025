@@ -21,7 +21,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddAplicationServices(_config);
+            
             services.AddControllers();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
