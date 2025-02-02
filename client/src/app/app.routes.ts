@@ -26,7 +26,7 @@ export const routes: Routes = [
                 title: 'Member Page',
             },
             {
-                path: 'members/:id',
+                path: 'members/:username',
                 component: MemberDetailComponent,
                 title: 'Members Detail Page'
             },
