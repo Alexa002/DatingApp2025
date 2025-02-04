@@ -8,10 +8,11 @@ import { AccountService } from './_services/account.service';
 import { HomeComponent } from "./home/home.component";
 import { RouterModule } from '@angular/router';
 import { errorInterceptor } from './_interceptors/error.interceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
   selector: 'app-root',
-  imports: [HttpClientModule, RouterModule, CommonModule, NavComponent],
+  imports: [HttpClientModule, RouterModule, CommonModule, NavComponent,NgxSpinnerModule],
   providers:[ 
 ],
   templateUrl: './app.component.html',
