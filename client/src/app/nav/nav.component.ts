@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav',
@@ -23,7 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavComponent implements OnInit {
   model: any = {}
-  
+  user: User;
   
   constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
 
