@@ -15,10 +15,7 @@ import { User } from '../_models/user';
     BsDropdownModule,
     RouterModule,
   ],
-  providers: [
-    AccountService,
 
-  ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })

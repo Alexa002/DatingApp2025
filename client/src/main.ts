@@ -16,6 +16,7 @@ bootstrapApplication(AppComponent, {
     provideToastr({positionClass: 'toast-bottom-right'}),
     provideRouter(routes),
     
+    
    
   ]
 })
