@@ -10,10 +10,11 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
 import { PhotoEditorComponent } from "../photo-editor/photo-editor.component";
+import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
   selector: 'app-member-edit',
-  imports: [CommonModule, RouterModule, FormsModule, TabsModule, PhotoEditorComponent],
+  imports: [CommonModule, RouterModule, FormsModule, TabsModule, PhotoEditorComponent, TimeagoModule],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css'
 })

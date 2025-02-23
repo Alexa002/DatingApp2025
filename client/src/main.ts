@@ -8,6 +8,8 @@ import { provideToastr } from 'ngx-toastr';
 import { errorInterceptor } from './app/_interceptors/error.interceptor';
 import { jwtInterceptor } from './app/_interceptors/jwt.interceptor';
 import { loadingInterceptor } from './app/_interceptors/loading.interceptor';
+import { TimeagoClock, TimeagoDefaultClock, TimeagoDefaultFormatter, TimeagoFormatter, TimeagoIntl } from 'ngx-timeago';
+
 
 bootstrapApplication(AppComponent, {
   providers:[
@@ -15,6 +17,10 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor, errorInterceptor])),
     provideToastr({positionClass: 'toast-bottom-right'}),
     provideRouter(routes),
+    TimeagoIntl, 
+    { provide: TimeagoClock, useClass: TimeagoDefaultClock },
+    { provide: TimeagoFormatter, useClass: TimeagoDefaultFormatter },
+    
     
     
    

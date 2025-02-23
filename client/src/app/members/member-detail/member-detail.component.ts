@@ -6,10 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryModule, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { HttpClientModule } from '@angular/common/http';
+import { TimeagoClock, TimeagoModule,  } from "ngx-timeago";
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-member-detail',
-  imports: [CommonModule,TabsModule,NgxGalleryModule, HttpClientModule],
+  imports: [CommonModule,TabsModule,NgxGalleryModule, HttpClientModule, TimeagoModule,],
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.css'
 })
