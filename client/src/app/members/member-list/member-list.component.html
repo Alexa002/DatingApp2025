@@ -3,46 +3,42 @@
 </div>
 
 <div class="container mt-3">
-    <form class="form-inline mb-3" #form="ngForm" (ngSubmit)="loadMembers()" autocomplete="off">
-        <div class="form-group">
+    <form class="d-flex flex-wrap mb-3" #form="ngForm" (ngSubmit)="loadMembers()" autocomplete="off">
+        <div class="form-group me-2">
             <label>Age from:</label>
-            <input type="number" class="form-control ml-1" style="width: 70px;" name="minAge"
-                [(ngModel)]="userParams.minAge">
+            <input type="number" class="form-control" style="width: 70px;" name="minAge" [(ngModel)]="userParams.minAge">
         </div>
-        <div class="form-group px-2">
+        <div class="form-group me-2">
             <label>Age to:</label>
-            <input type="number" class="form-control ml-1" style="width: 70px;" name="maxAge"
-                [(ngModel)]="userParams.maxAge">
+            <input type="number" class="form-control" style="width: 70px;" name="maxAge" [(ngModel)]="userParams.maxAge">
         </div>
-        <div class="form-group px-2">
-            <label>Show: </label>
-            <select class="form-control ml-1" style="width: 130px;" name="gender" [(ngModel)]="userParams.gender">
+        <div class="form-group me-2">
+            <label>Show:</label>
+            <select class="form-control" style="width: 130px;" name="gender" [(ngModel)]="userParams.gender">
                 <option *ngFor="let gender of genderList" [value]="gender.value">
                     {{gender.display}}
                 </option>
             </select>
         </div>
 
-        <button class="btn btn-primary ml-1" type="submit">Apply Filters</button>
-        <button (click)="resetFileters()" class="btn btn-info ml-1" type="submit">Reset Filters</button>
-        <div class="col">
-            <div class="button-group float-right">
+        <button class="btn btn-primary me-2  " type="submit">Apply Filters</button>
+        <button (click)="resetFileters()" class="btn btn-info me-2 cus" type="button">Reset Filters</button>
+
+        <div class="ms-auto">
+            <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" (click)="loadMembers()" btnRadio="lastActive"
                     name="orderBy" [(ngModel)]="userParams.orderBy">Last Active
                 </button>
-                <button type="button" class="btn btn-primary" (click)="loadMembers()" btnRadio="created" name="created"
-                    [(ngModel)]="userParams.orderBy">Newest Members
+                <button type="button" class="btn btn-primary" (click)="loadMembers()" btnRadio="created"
+                    name="orderBy" [(ngModel)]="userParams.orderBy">Newest Members
                 </button>
             </div>
         </div>
-
-
     </form>
 </div>
 
-
 <div class="row">
-    <div *ngFor="let member of members" class="col-2">
+    <div *ngFor="let member of members" class="col-6 col-sm-4 col-md-3 col-lg-2">
         <app-member-card [member]="member"></app-member-card>
     </div>
 </div>
