@@ -21,9 +21,6 @@ bootstrapApplication(AppComponent, {
     { provide: TimeagoClock, useClass: TimeagoDefaultClock },
     { provide: TimeagoFormatter, useClass: TimeagoDefaultFormatter },
     
-    
-    
-   
   ]
 })
   .catch((err) => console.error(err));

@@ -12,6 +12,10 @@
                 <li class="nav-item">
                     <a class="nav-link " routerLink='/lists' routerLinkActive='active'>Automobili</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" *appHasRole="['Admin','Moderator']" routerLink='/admin' routerLinkActive='active'>Admin</a>
+                </li>
+
 
             </ng-container>
             <li class="nav-item">
@@ -21,7 +25,7 @@
 
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
             <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.userName}}">
-            <a class="dropdown-toggle text-light ms-2" dropdownToggle>Welcome {{user.knownAs | titlecase}}</a>
+            <a class="dropdown-toggle text-light ms-2" dropdownToggle>Welcome {{user.knownAs || user.userName | titlecase}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
                 <div class="dropdown-divider"></div>

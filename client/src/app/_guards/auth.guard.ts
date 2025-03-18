@@ -5,9 +5,9 @@ import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 
 export const authGuard: CanActivateFn = (): Observable<boolean> => {
+ 
   const accountService = inject(AccountService);
   const toastr = inject(ToastrService);
-
 
 
   return accountService.currentUser$.pipe(
