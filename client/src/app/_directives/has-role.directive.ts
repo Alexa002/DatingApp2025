@@ -14,12 +14,12 @@ export class HasRoleDirective implements OnInit {
   constructor(private viewContainerRef: ViewContainerRef, private templatesRef: TemplateRef<any>, private accountService: AccountService) {
 
 
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+    this.accountService.currentUser$.pipe(take(1)).subscribe((user: User) => {
       this.user = user;
     })
   }
   ngOnInit(): void {
-    //clear view if no roles
+
     if (!this.user?.roles || this.user == null) {
       this.viewContainerRef.clear();
       return;

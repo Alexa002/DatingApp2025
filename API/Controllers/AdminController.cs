@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Data;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +16,10 @@ namespace API.Controllers
     public class AdminController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
-        public AdminController(UserManager<AppUser> userManager)
+        private readonly IUnitOfWork _unitOfWork;
+        public AdminController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
 
@@ -38,12 +42,12 @@ namespace API.Controllers
                 return Ok(users);
         }
 
-        [HttpPost("edit-roles/{username}")]
-        public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
+        [HttpPost("edit-roles/{userName}")]
+        public async Task<ActionResult> EditRoles(string userName, [FromQuery] string roles)
         {
             var selectedRoles = roles.Split(',').ToArray();
 
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(userName);
 
             if (user == null) return NotFound("Could not find user");
 
@@ -62,9 +66,34 @@ namespace API.Controllers
 
         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("photos-to-moderate")]
-        public ActionResult GetPhotosForMoeration()
+        public async Task<ActionResult> GetPhotosForModeration()
         {
-            return Ok("Moderators and admins can see this");
+            var users = await _userManager.Users
+            .Select(u => new {
+                u.Id,
+                Username = u.UserName,
+                PhotoIds = u.Photos.Select(p => p.Id).ToList()
+            }).ToListAsync();
+
+            return Ok(users);
         }
+
+        
+        [HttpDelete("photo-delete/{userName}/{photoId}")]
+        public async Task<ActionResult> DeletePhotoAsAdmin(int photoId, string userName)
+        {
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(userName);
+            var photo = user.Photos.FirstOrDefault(p => p.Id == photoId);
+
+            if (photo == null) return NotFound();
+
+            user.Photos.Remove(photo);
+            
+            if (await _unitOfWork.Complete()) return Ok();
+            
+            
+            return BadRequest("Failed to delete photo");
+        }
+        
     }
 }

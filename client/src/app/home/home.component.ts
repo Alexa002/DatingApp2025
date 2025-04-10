@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RegisterComponent } from "../register/register.component";
 import { HttpClient } from '@angular/common/http';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-home',
@@ -11,21 +12,27 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent {
   registerMode = false;
-  users: any;
+  userExists: boolean = false;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() : void{
-
+  ngOnInit(): void {
+    this.checkUsers();
   }
 
   registerToggle() {
     this.registerMode = !this.registerMode;
   }
 
+  checkUsers() {
+    const user : User = JSON.parse(localStorage.getItem('user'));
+    if(user)
+      this.userExists = true;
+    else
+      this.userExists = false; 
+  }
 
-  
-  cancelRegisterMode(event: boolean){
+  cancelRegisterMode(event: boolean) {
     this.registerMode = event;
   }
 }

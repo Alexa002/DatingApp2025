@@ -17,7 +17,7 @@ import { RolesModalComponent } from '../../_modules/roles-modal/roles-modal.comp
 export class UserManagmentComponent implements OnInit {
   users: Partial<User[]>;
   bsModalRef: BsModalRef;
-
+  
   constructor(private adminService: AdminService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
@@ -38,6 +38,7 @@ export class UserManagmentComponent implements OnInit {
         roles: this.getRolesArray(user)
       }
     }
+    user.userName = user.username;
     this.bsModalRef = this.modalService.show(RolesModalComponent, config);
     this.bsModalRef.content.updateSelectedRoles.subscribe(values => {
       const rolesToUpdate = {

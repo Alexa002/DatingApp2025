@@ -16,8 +16,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   @Output() cancelRegister = new EventEmitter();
-  registerForm: FormGroup;
-  maxDate: Date;
+  registerForm: FormGroup = new FormGroup({});
+  maxDate: Date = new Date;
   validationErrors: string[] = [];
 
 
@@ -26,7 +26,6 @@ export class RegisterComponent {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 17);
   }
 
@@ -42,7 +41,8 @@ export class RegisterComponent {
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
 
     })
-    this.registerForm.controls.password.valueChanges.subscribe(() => this.registerForm.controls.confirmPassword.updateValueAndValidity());
+    this.registerForm.controls.password.valueChanges.subscribe(() => 
+      this.registerForm.controls.confirmPassword.updateValueAndValidity());
   }
 
   matchValues(matchTo: string): ValidatorFn {

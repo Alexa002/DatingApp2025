@@ -15,10 +15,18 @@ export class AdminService {
 
 
   getUserWithRoles() {
-    return this.http.get<Partial<User[]>>(this.baseUrl + 'admin/users-with-roles')
+    return this.http.get<Partial<User[]>>(this.baseUrl + 'admin/users-with-roles');
   }
 
-  updateUserRoles(username: string, roles:string[]){
-    return this.http.post(this.baseUrl + 'admin/edit-roles/' + username + '?roles=' + roles, {})
+  updateUserRoles(userName: string, roles: string[]) {
+    return this.http.post(this.baseUrl + 'admin/edit-roles/' + userName + '?roles=' + roles, {});
+  }
+
+  getPhotosForModeration() {
+    return this.http.get<Partial<User[]>>(this.baseUrl + 'admin/photos-to-moderate');
+  }
+
+  deletePhotoAsAdmin(photoId: number, userName: string) {
+    return this.http.delete(this.baseUrl + 'admin/photo-delete/' + userName + '/' + photoId);
   }
 }

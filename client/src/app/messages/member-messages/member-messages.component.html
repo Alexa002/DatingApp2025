@@ -1,11 +1,15 @@
 <div class="card">
     <div class="card-body">
-        <div *ngIf="messages?.length === 0">
+        <div *ngIf="(messageService.messageThread$ | async)?.length === 0">
             No messages yet... say hi by using the message box below.
         </div>
 
-        <ul *ngIf="messages?.length > 0" class="chat">
-            <li *ngFor="let message of messages">
+        <ul #scrollMe
+        style="overflow: scroll; height: 500px;"
+        [scrollTop]="scrollMe.scrollHeight"
+        *ngIf="(messageService.messageThread$ | async)?.length > 0" 
+        class="chat">
+            <li *ngFor="let message of (messageService.messageThread$ | async)">
                 <div class="d-flex align-items-start">
                     <span class="chat-img me-3 float-right" >
                         <img class="rounded-circle" [src]="message.senderPhotoUrl || './assets/user.png'" alt="{{message.senderUsername}}" width="40" height="40">
@@ -14,10 +18,10 @@
                         <div class="header">
                             <small class="text-muted">
                                 <span class="fa fa-clock-o"></span> {{message.messageSent | timeago}}
-                                <span class="text-danger" *ngIf="!message.dateRead && message.senderUsername !== username">
+                                <span class="text-danger" *ngIf="!message.dateRead && message.senderUsername !== userName">
                                     (unread)
                                 </span>
-                                <span class="text-success" *ngIf="message.dateRead && message.senderUsername !== username">
+                                <span class="text-success" *ngIf="message.dateRead && message.senderUsername !== userName">
                                     (read {{message.dateRead | timeago}})
                                 </span>
                             </small>

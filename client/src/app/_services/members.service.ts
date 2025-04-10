@@ -18,13 +18,13 @@ export class MembersService {
   baseUrl = environment.apiUrl;
   members: Member[] = [];
   memberCache = new Map();
-  user: User;
-  userParams: UserParams;
+  user: User | undefined;
+  userParams: UserParams | undefined;
 
 
 
   constructor(private http: HttpClient, private accountService: AccountService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+    this.accountService.currentUser$.pipe(take(1)).subscribe((user: User )=> {
       this.user = user;
       this.userParams = new UserParams(user);
     })
@@ -47,7 +47,8 @@ export class MembersService {
   getMembers(userParams: UserParams) {
     var response = this.memberCache.get(Object.values(userParams).join('-'));
     if (response) {
-      return of(response)
+      console.log(response)
+      return of(response);
     }
 
     let params = getPaginationHeaders(userParams.pageNumber, userParams.pageSize)
@@ -58,7 +59,7 @@ export class MembersService {
     params = params.append('orderBy', userParams.orderBy);
 
     return getPaginatedResult<Member[]>(this.baseUrl + 'users', params, this.http)
-      .pipe(map(response => {
+      .pipe(map(response  => {
         this.memberCache.set(Object.values(userParams).join('-'), response);
         return response;
       }))
@@ -66,16 +67,16 @@ export class MembersService {
 
 
 
-  getMember(username: string) {
+  getMember(userName: string) {
     const member = [...this.memberCache.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
-      .find((member: Member) => member.username == username);
+      .find((member: Member) => member.username == userName);
 
     if (member) {
       return of(member);
     }
 
-    return this.http.get<Member>(this.baseUrl + 'users/' + username);
+    return this.http.get<Member>(this.baseUrl + 'users/' + userName);
 
   }
 
@@ -99,8 +100,8 @@ export class MembersService {
 
   
 
-  addLike(username: string) {
-    return this.http.post(this.baseUrl + 'likes/' + username, {})
+  addLike(userName: string) {
+    return this.http.post(this.baseUrl + 'likes/' + userName, {})
   }
 
   getLikes(predicate: string, pageNumber, pageSize) {

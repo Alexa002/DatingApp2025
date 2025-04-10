@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MembersService } from '../../_services/members.service';
 import { Member } from '../../_models/member';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryModule, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +11,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MemberMessagesComponent } from "../../messages/member-messages/member-messages.component";
 import { MessageService } from '../../_services/message.service';
 import { Message } from '../../_models/message';
+import { PresenceService } from '../../_services/presence.service';
+import { User } from '../../_models/user';
+import { AccountService } from '../../_services/account.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-member-detail',
@@ -18,18 +22,26 @@ import { Message } from '../../_models/message';
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.css'
 })
-export class MemberDetailComponent implements OnInit{
+export class MemberDetailComponent implements OnInit, OnDestroy{
   @ViewChild('memberTabs', {static: true})  memberTabs: TabsetComponent;
   member: Member;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   activeTab: TabDirective;
   messages: Message[] = [];
-
+  user: User;
   
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private messageService: MessageService) { }
+  constructor(public presence: PresenceService, private accountService: AccountService, private route: ActivatedRoute, private messageService: MessageService,
+    private router: Router, private memberService: MembersService
+  ) { 
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
 
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -67,6 +79,10 @@ export class MemberDetailComponent implements OnInit{
   return imageUrls;
  }
 
+ addLike(member: Member){
+  this.memberService.addLike(member.username).subscribe(() => console.log(member.username));
+ }
+
 
 
 loadMessages(){
@@ -78,7 +94,9 @@ loadMessages(){
 onTabActivated(data: TabDirective){
   this.activeTab = data;
   if(this.activeTab.heading === "Messages" && this.messages.length === 0) {
-    this.loadMessages();
+    this.messageService.createHubConnection(this.user, this.member.username)
+  } else {
+    this.messageService.stopHubConnection();
   }
 }
 

@@ -64,7 +64,7 @@ namespace API.Controllers
             .Include(p => p.Photos)
             .SingleOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
 
-            if (user == null) return Unauthorized("Invalid username");
+            if (user == null) return Unauthorized("Invalid userName");
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
@@ -80,9 +80,9 @@ namespace API.Controllers
             };
         }
 
-        private async Task<bool> UserExists(string username)
+        private async Task<bool> UserExists(string userName)
         {
-            return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _userManager.Users.AnyAsync(x => x.UserName == userName.ToLower());
         }
     }
 }

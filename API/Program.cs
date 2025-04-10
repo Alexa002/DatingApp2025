@@ -5,6 +5,7 @@ using API.Extensions;
 using API.Interfaces;
 using API.Middleware;
 using API.Services;
+using API.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,18 +20,25 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("https://localhost:4200") // Allow requests from Angular dev server
-              .AllowAnyHeader()                      // Allow any headers
-              .AllowAnyMethod();                     // Allow any HTTP methods (GET, POST, etc.)
+        policy.AllowAnyHeader()                     
+              .AllowCredentials()                     
+              .AllowAnyMethod()
+              .WithOrigins("https://localhost:4200")
+              .SetIsOriginAllowed(_ => true);                     
     });
 });
+builder.Services.AddSignalR();
 builder.Services.AddIdentityServices(_config);
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseSqlite(_config.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddApplicationServices(_config);
+
 
 
 
@@ -57,6 +65,11 @@ catch (Exception ex)
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors("AllowAngularApp");
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
+
 
 await app.RunAsync();

@@ -31,7 +31,7 @@ export const routes: Routes = [
                 title: 'Member Page',
             },
             {
-                path: 'members/:username',
+                path: 'members/:userName',
                 component: MemberDetailComponent,
                 title: 'Members Detail Page',
                 resolve: {member: MemberDetailedResolver}
