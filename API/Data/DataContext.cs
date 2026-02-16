@@ -85,9 +85,9 @@ namespace API.Data
         public static Boolean IsUtc(this IMutableProperty property) =>
           ((Boolean?)property.FindAnnotation(IsUtcAnnotation)?.Value) ?? true;
 
-        /// <summary>
-        /// Make sure this is called after configuring all your entities.
-        /// </summary>
+       
+
+       
         public static void ApplyUtcDateTimeConverter(this ModelBuilder builder)
         {
             foreach (var entityType in builder.Model.GetEntityTypes())

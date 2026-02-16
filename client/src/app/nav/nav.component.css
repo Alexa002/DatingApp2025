@@ -1,9 +1,80 @@
-.dropdown-toggle, .dropdown-item {
- cursor: pointer;
+.main-navbar {
+backdrop-filter: blur(8px);
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
-img{
-    max-height: 50px;
-    border: 2px solid #fff;
-    display: inline;
+
+.brand {
+font-weight: 700;
+font-size: 1.4rem;
+letter-spacing: 0.5px;
+}
+
+
+.navbar-nav .nav-link {
+position: relative;
+margin-right: 0.5rem;
+transition: color 0.2s ease;
+}
+
+
+.navbar-nav .nav-link::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -6px;
+width: 0;
+height: 2px;
+background: #667eea;
+transition: width 0.25s ease;
+}
+
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+width: 100%;
+}
+
+
+.user-dropdown {
+display: flex;
+align-items: center;
+}
+
+
+.user-avatar {
+width: 42px;
+height: 42px;
+object-fit: cover;
+border-radius: 50%;
+border: 2px solid #fff;
+}
+
+
+.dropdown-toggle,
+.dropdown-item {
+cursor: pointer;
+}
+
+
+.dropdown-menu {
+border-radius: 14px;
+overflow: hidden;
+}
+
+
+.dropdown-item {
+padding: 0.6rem 1rem;
+}
+
+
+.login-form input {
+min-width: 130px;
+}
+
+
+@media (max-width: 768px) {
+.login-form {
+margin-top: 1rem;
+}
 }

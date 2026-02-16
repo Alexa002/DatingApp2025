@@ -1,13 +1,141 @@
+/* =========================
+   PHOTO GRID
+   ========================= */
+
 img.image-thumbnail {
-    height: 100px;
-    min-width: 100px !important;
-    margin-bottom: 2px;
+  height: 100px;
+  min-width: 100px !important;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
+img.image-thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+/* Buttons under photos */
+.text-center .btn {
+  margin: 4px 2px;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.text-center .btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.text-center .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   DROP ZONE
+   ========================= */
+
+.my-drop-zone {
+  border: 2px dashed #bbb;
+  border-radius: 16px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.my-drop-zone i {
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.my-drop-zone:hover {
+  background: #f0f4ff;
+  border-color: #0d6efd;
+  color: #0d6efd;
+}
+
+/* Drag-over state */
 .nv-file-over {
-    border: dotted 3px rebeccapurple;
+  border: 2px dashed #0d6efd;
+  background: rgba(13, 110, 253, 0.05);
 }
 
-input[type=file]{
-    color: transparent;
+/* =========================
+   FILE INPUTS
+   ========================= */
+
+input[type=file] {
+  color: transparent;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+/* =========================
+   UPLOAD QUEUE
+   ========================= */
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #f8f9fa;
+}
+
+.table th {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.table td {
+  font-size: 14px;
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+
+.progress {
+  height: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #e9ecef;
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #0d6efd, #6610f2);
+  transition: width 0.3s ease;
+}
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
+
+.btn-s {
+  border-radius: 30px;
+  padding: 6px 16px;
+  margin-right: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-s:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+/* =========================
+   HEADINGS
+   ========================= */
+
+h3 {
+  font-weight: 700;
+  margin-bottom: 10px;
 }

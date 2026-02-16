@@ -17,9 +17,11 @@ export class PhotoModalComponent implements OnInit
   @Input() user: User;
   @Input() photoIds: number[] = [];
 
+  photoChecked: { [id: number]: boolean } = {};
+
+
   constructor(public bsModalRef: BsModalRef) {}
 
-  photoChecked: { [id: number]: boolean } = {}; 
 
   ngOnInit(): void {
     this.photoIds.forEach((id) => {
@@ -27,6 +29,7 @@ export class PhotoModalComponent implements OnInit
     });
     console.log('Initialized photoChecked:', this.photoChecked);
   }
+  
 
   updatePhotos(): void {
     const selectedPhotoIds = this.photoIds.filter((id) => this.photoChecked[id]);

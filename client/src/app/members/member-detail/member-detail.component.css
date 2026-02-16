@@ -1,15 +1,107 @@
+.member-profile {
+  margin-top: 20px;
+}
+
+/* Card */
+.profile-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Image */
+.image-wrapper {
+  position: relative;
+  text-align: center;
+}
+
 .img-thumbnail {
-    margin: 25px;
-    width: 85%;
-    height: 85%;
+  margin: 20px auto;
+  width: 85%;
+  height: auto;
+  border-radius: 14px;
+  object-fit: cover;
+  border: none;
 }
 
+/* Online badge */
+.online-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #28a745;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Card body */
 .card-body {
-    padding: 0 25px;
+  padding: 20px 25px;
 }
 
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.info-item strong {
+  color: #555;
+}
+
+.info-item span {
+  color: #222;
+  font-weight: 500;
+}
+
+/* Footer */
 .card-footer {
-    padding: 10px 15px;
-    background-color: #fff;
-    border-top: none;
+  padding: 15px;
+  background-color: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.card-footer .btn {
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.card-footer .btn i {
+  margin-right: 6px;
+}
+
+.card-footer .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Tabs */
+.member-tabset {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.about-text {
+  line-height: 1.6;
+  color: #444;
 }

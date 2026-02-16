@@ -11,7 +11,6 @@ namespace API.SignalR
     public class MessageHub : Hub
     {
         private readonly IUnitOfWork _unitOfWork;
-        
         private readonly IMapper _mapper;
         private readonly IHubContext<PresenceHub> _presenceHub;
         private readonly PresenceTracker _tracker;
@@ -65,7 +64,7 @@ namespace API.SignalR
                 Sender = sender,
                 Recipient = recipient,
                 SenderUsername = sender.UserName,
-            RecipientUsername = recipient.UserName,
+                RecipientUsername = recipient.UserName,
                 Content = createMessageDto.Content,
             };
 
@@ -110,7 +109,7 @@ namespace API.SignalR
 
             group.Connections.Add(connection);
 
-            if( await _unitOfWork.Complete()) return group;
+            if(await _unitOfWork.Complete()) return group;
 
             throw new HubException("Failed to join group");
         }
@@ -121,7 +120,7 @@ namespace API.SignalR
             var connection = group.Connections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             _unitOfWork.MessageRepository.RemoveConnection(connection);
             if(await _unitOfWork.Complete()) return group;
-            throw new HubException("Failed to remowe from group");
+            throw new HubException("Failed to remove from group");
         }
 
 

@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 IConfiguration _config = builder.Configuration;
 builder.Services.AddCors(options =>
 {

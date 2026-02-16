@@ -1,28 +1,56 @@
-<div class="container">
-    <div *ngIf="!registerMode" style="text-align: center;">
-        <h1>Find Love, Make Connections, and Meet Your Perfect Match</h1>
-        <p class="lead">Welcome to Dating App, the ultimate dating experience designed to bring real connections to life. Whether you're looking for true love, new friendships, or just someone to share special moments with, we make it easy to meet like-minded people.</p>
-        <p class="lead">💬 Real Conversations – Engage in meaningful chats with people who truly interest you.</p>
-        <p class="lead">📍 Meet Locally or Globally – Connect with singles near you or explore exciting connections worldwide.</p>
-        <p class="lead">🔒 Safe & Secure – Your privacy and security are our top priorities.</p>
-        <p class="lead">Join today and start your journey to finding love! ❤️
+<div class="container home-hero">
+<div *ngIf="!registerMode" class="hero-content">
+<h1 class="hero-title">Find Love, Make Real Connections ❤️</h1>
 
-            Sign Up Now and Meet Your Match!</p>
-        
-        <div class="text-center">
-            @if (userExists === false) {
-                <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">Register Now</button>
-            }
-           
-            <button class="btn btn-info btn-lg">More Info</button>
-        </div>
-    </div>
 
-    <div class="container" *ngIf="registerMode">
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
-            </div>
-        </div>
-    </div>
+<p class="hero-subtitle">
+Welcome to <strong>Dating App</strong> — a modern place where real connections begin.
+Whether you're searching for true love, meaningful friendships, or someone special to
+share moments with, you're in the right place.
+</p>
+
+
+<div class="features">
+<div class="feature-item">
+<span class="feature-icon">💬</span>
+<p><strong>Real Conversations</strong><br />Chat with people who genuinely match your interests.</p>
+</div>
+
+
+<div class="feature-item">
+<span class="feature-icon">📍</span>
+<p><strong>Local & Global Matches</strong><br />Meet singles nearby or connect worldwide.</p>
+</div>
+
+
+<div class="feature-item">
+<span class="feature-icon">🔒</span>
+<p><strong>Safe & Secure</strong><br />Your privacy and security always come first.</p>
+</div>
+</div>
+
+
+<p class="cta-text">Join today and start your journey toward something meaningful ✨</p>
+
+
+<div class="text-center hero-actions">
+@if (userExists === false) {
+<button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">
+Register Now
+</button>
+}
+
+
+<button class="btn btn-outline-info btn-lg">More Info</button>
+</div>
+</div>
+
+
+<div class="container" *ngIf="registerMode">
+<div class="row justify-content-center">
+<div class="col-4 register-card">
+<app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+</div>
+</div>
+</div>
 </div>

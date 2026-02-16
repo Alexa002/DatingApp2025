@@ -24,8 +24,7 @@ export class AccountService {
         const user = response;
         if (user) {
           this.setCurrentUser(user);
-          this.presence.createHubConnection(user);
-          
+          this.presence.createHubConnection(user); 
         }
       })
     )

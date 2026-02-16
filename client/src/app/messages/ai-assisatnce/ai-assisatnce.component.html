@@ -1,0 +1,46 @@
+<!-- components/ai-assistance/ai-assistance.component.html -->
+<div class="ai-assistance-container">
+  <button
+    class="btn btn-outline-secondary ai-help-button"
+    type="button"
+    [disabled]="!currentMessage"
+    (click)="toggleDropdown()"
+    title="AI Assistant"
+  >
+    <i class="fa fa-robot"></i> AI Help
+  </button>
+
+  <!-- Mode dropdown -->
+  <ul class="ai-mode-menu" *ngIf="isDropdownOpen">
+    <li (click)="selectAiMode('Chat')">💬 Chat</li>
+    <li (click)="selectAiMode('ProfileReview')">📝 Profile review</li>
+    <li (click)="selectAiMode('FirstMessage')">🚀 First message</li>
+    <li (click)="selectAiMode('PredictNextReply')">🔮 Predict next reply</li>
+  </ul>
+
+  <!-- AI Response Bubble -->
+  <div class="ai-assistance-panel" *ngIf="isBubbleOpen">
+    <div class="ai-panel-header">
+      <span>🤖 AI Assistance · {{ selectedPromptType }}</span>
+      <button class="close-button" (click)="isBubbleOpen = false">×</button>
+    </div>
+
+    <div class="ai-panel-content">
+      <div *ngIf="isLoading" class="loading">
+        <div class="spinner"></div>
+        <small>AI is thinking…</small>
+      </div>
+
+      <div *ngIf="!isLoading && aiResponse !== null" class="ai-response">
+        <p>{{ aiResponse }}</p>
+        <button class="use-response-button" (click)="useAiResponse()">
+          Use this message
+        </button>
+      </div>
+
+      <div *ngIf="!isLoading && !aiResponse" class="no-response">
+        Select a mode to get AI help.
+      </div>
+    </div>
+  </div>
+</div>

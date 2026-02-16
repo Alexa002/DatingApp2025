@@ -1,3 +1,55 @@
-.img-circle{
-    max-height: 50px;
+.message-filters .btn {
+min-width: 110px;
+}
+
+
+.messages-table {
+background: #fff;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+
+.messages-table thead {
+background: #f8f9fa;
+}
+
+
+.message-row {
+cursor: pointer;
+transition: background 0.2s ease;
+}
+
+
+.message-row:hover {
+background: #f5f7ff;
+}
+
+
+.message-content {
+max-width: 420px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+
+.avatar {
+width: 42px;
+height: 42px;
+object-fit: cover;
+border-radius: 50%;
+}
+
+
+.empty-state {
+padding: 3rem 0;
+}
+
+
+@media (max-width: 768px) {
+.message-content {
+max-width: 220px;
+}
 }

@@ -17,7 +17,7 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
-        
+
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
         public UsersController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
@@ -25,19 +25,19 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
             _photoService = photoService;
             _mapper = mapper;
-            
+
         }
 
-        
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
             var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
             userParams.CurrentUsername = User.GetUsername();
 
-            if(string.IsNullOrEmpty(userParams.Gender))
+            if (string.IsNullOrEmpty(userParams.Gender))
             {
-                userParams.Gender = gender == "male" ? "female" : "male" ;
+                userParams.Gender = gender == "male" ? "female" : "male";
             }
 
             var users = await _unitOfWork.UserRepository.GetMembersAsync(userParams);
@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         //api/users/3
-       
+
         [HttpGet("{userName}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string userName)
         {
@@ -124,10 +124,10 @@ namespace API.Controllers
             }
 
             user.Photos.Remove(photo);
-            
+
             if (await _unitOfWork.Complete()) return Ok();
-            
-            
+
+
             return BadRequest("Failed to delete photo");
 
         }
@@ -150,7 +150,6 @@ namespace API.Controllers
 
             return BadRequest("Failed to set main photo");
         }
-
 
     }
 }

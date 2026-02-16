@@ -1,0 +1,59 @@
+.matches-header h2 {
+font-weight: 700;
+}
+
+
+.filters-card {
+background: #ffffff;
+padding: 1.5rem 1.5rem 1.8rem;
+border-radius: 16px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.form-label {
+font-size: 0.9rem;
+font-weight: 500;
+}
+
+
+.small-input {
+width: 80px;
+}
+
+
+.filter-actions button {
+min-width: 100px;
+}
+
+
+.sort-group .btn {
+min-width: 120px;
+}
+
+
+.members-grid {
+margin-top: 1rem;
+}
+
+
+.members-grid app-member-card {
+display: block;
+transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+
+.members-grid app-member-card:hover {
+transform: translateY(-6px);
+}
+
+
+pagination ::ng-deep .pagination {
+gap: 4px;
+}
+
+
+pagination ::ng-deep .page-item.active .page-link {
+background-color: #667eea;
+border-color: #667eea;
+}

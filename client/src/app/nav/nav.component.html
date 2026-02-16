@@ -1,46 +1,82 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" routerLink='/'>Dating App</a>
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <ng-container  *ngIf="accountService.currentUser$ | async" >
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" routerLink='/members' routerLinkActive='active'>Members</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/messages" routerLinkActive='active'>Messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " routerLink='/lists' routerLinkActive='active'>Member Likes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" *appHasRole="['Admin','Moderator']" routerLink='/admin' routerLinkActive='active'>Admin</a>
-                </li>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark main-navbar">
+<div class="container-fluid">
 
 
-            </ng-container>
-            <li class="nav-item">
-                <a class="nav-link "  *appHasRole="['Admin','Moderator']" routerLink='/errors' routerLinkActive='active'>Errors</a>
-            </li>
-        </ul>
+<a class="navbar-brand brand" routerLink="/">💘 Dating App</a>
 
-        <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-            <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.userName}}">
-            <a class="dropdown-toggle text-light ms-2" dropdownToggle>Welcome {{user.knownAs || user.userName | titlecase}}</a>
-            <div class="dropdown-menu mt-3" *dropdownMenu>
-                <a routerLink='/member/edit' class="dropdown-item">Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="logout()">Logout</a>
-                
-            </div>
-        </div>
 
-        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm"
-            class="d-flex form-inline mt-2 mt-md-0" (ngSubmit)="login()" autocomplete="off">
-            <input class="form-control me-2" type="text" placeholder="Username" name="userName"
-                [(ngModel)]="model.userName">
-            <input class="form-control me-2" type="password" placeholder="Password" name="password"
-                [(ngModel)]="model.password">
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Login</button>
-        </form>
-    </div>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+
+<div class="collapse navbar-collapse" id="mainNav">
+<ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+
+<ng-container *ngIf="accountService.currentUser$ | async">
+<li class="nav-item">
+<a class="nav-link" routerLink="/members" routerLinkActive="active">Members</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" routerLink="/lists" routerLinkActive="active">Likes</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" *appHasRole="['Admin','Moderator']" routerLink="/admin" routerLinkActive="active">Admin</a>
+</li>
+</ng-container>
+
+
+<li class="nav-item">
+<a class="nav-link" *appHasRole="['Admin','Moderator']" routerLink="/errors" routerLinkActive="active">Errors</a>
+</li>
+</ul>
+
+
+<div class="dropdown user-dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+<img class="user-avatar" src="{{ user.photoUrl || './assets/user.png' }}" alt="{{ user.userName }}">
+<a class="dropdown-toggle text-light ms-2" dropdownToggle>
+{{ user.knownAs || user.userName | titlecase }}
+</a>
+<div class="dropdown-menu dropdown-menu-end mt-3" *dropdownMenu>
+<a routerLink="/member/edit" class="dropdown-item">Edit Profile</a>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+</div>
+</div>
+
+
+<form
+*ngIf="(accountService.currentUser$ | async) === null"
+#loginForm="ngForm"
+class="d-flex align-items-center login-form"
+(ngSubmit)="login()"
+autocomplete="off">
+
+
+<input
+class="form-control me-2"
+type="text"
+placeholder="Username"
+name="userName"
+[(ngModel)]="model.userName">
+
+
+<input
+class="form-control me-2"
+type="password"
+placeholder="Password"
+name="password"
+[(ngModel)]="model.password">
+
+
+<button class="btn btn-outline-light" type="submit">Login</button>
+</form>
+
+
+</div>
+</div>
 </nav>
